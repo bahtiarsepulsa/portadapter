@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	operatorRepositoryMock "portadapter/repository/mock/operator"
+	operatorRepositoryDummy "portadapter/repository/dummy/operator"
 	operatorService "portadapter/service/operator"
 	structService "portadapter/struct/service"
 
@@ -14,16 +14,21 @@ import (
 func main() {
 	// Config DB
 
-	// init repository
+	// init repository MySql
 	// db, _ := gorm.Open("mysql", "root:@tcp(localhost:3306)/portadapter?charset=utf8&parseTime=True&loc=Local")
 	// repository := operatorRepository.New(db)
-	repositoryMock := operatorRepositoryMock.New()
 
-	// init Service
+	// init repository Dummy
+	repositoryDummy := operatorRepositoryDummy.New()
+
+	// init Service use repository mysql
 	// operatorService := operatorService.New(repository)
-	operatorService := operatorService.New(repositoryMock)
 
-	// Run Method
+	// init Service use repository dummy
+	operatorService := operatorService.New(repositoryDummy)
+
+	// Run Service Method
+	// CreateData
 	err := operatorService.CreateData(structService.SaveOperator{
 		Code:  "label12",
 		Label: "name12",
@@ -32,6 +37,7 @@ func main() {
 		fmt.Println(err.Error())
 	}
 
+	// ReadData
 	readData, err := operatorService.ReadData("1")
 	if err != nil {
 		fmt.Println(err.Error())
@@ -40,6 +46,7 @@ func main() {
 		fmt.Println(string(b))
 	}
 
+	// UpdateData
 	err = operatorService.UpdateData("1", structService.SaveOperator{
 		Code:  "label12",
 		Label: "name12",
@@ -48,6 +55,7 @@ func main() {
 		fmt.Println(err.Error())
 	}
 
+	// ListData
 	listData, err := operatorService.ListData("name12")
 	if err != nil {
 		fmt.Println(err.Error())

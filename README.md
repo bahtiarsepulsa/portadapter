@@ -1,1 +1,1 @@
-1. Run MySQL DB Migration, run `go run migration/mysql/main.go up`
+Run MySQL DB Migration, run `go run migration/mysql/main.go up`
