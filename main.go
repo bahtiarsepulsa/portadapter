@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	operatorRepositoryDummy "portadapter/repository/dummy/operator"
+	"github.com/jinzhu/gorm"
+	// operatorRepositoryDummy "portadapter/repository/dummy/operator"
+	operatorRepository "portadapter/repository/mysql/operator"
 	operatorService "portadapter/service/operator"
 	structService "portadapter/struct/service"
 
@@ -15,17 +17,15 @@ func main() {
 	// Config DB
 
 	// init repository MySql
-	// db, _ := gorm.Open("mysql", "root:@tcp(localhost:3306)/portadapter?charset=utf8&parseTime=True&loc=Local")
-	// repository := operatorRepository.New(db)
+	db, _ := gorm.Open("mysql", "root:@tcp(localhost:3306)/portadapter?charset=utf8&parseTime=True&loc=Local")
+	repository := operatorRepository.New(db)
+	// init Service use repository mysql
+	operatorService := operatorService.New(repository)
 
 	// init repository Dummy
-	repositoryDummy := operatorRepositoryDummy.New()
-
-	// init Service use repository mysql
-	// operatorService := operatorService.New(repository)
-
+	// repositoryDummy := operatorRepositoryDummy.New()
 	// init Service use repository dummy
-	operatorService := operatorService.New(repositoryDummy)
+	// operatorService := operatorService.New(repositoryDummy)
 
 	// Run Service Method
 	// CreateData
