@@ -15,7 +15,7 @@ var usageCommands = `
 Run database migrations & seeder
 
 Usage:
-    krakenps [command]
+    [command]
 
 Available Migration Commands:
     up                   Migrate the DB to the most recent version available
@@ -48,7 +48,7 @@ func main() {
 			}
 
 			appPath, _ := os.Getwd()
-			dir := appPath + "/migration/mysql/migration"
+			dir := appPath + "/app/migration/mysql/migration"
 			if len(args) == 0 {
 				cmd.Help()
 				os.Exit(0)
