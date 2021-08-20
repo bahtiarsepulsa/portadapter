@@ -7,9 +7,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 
-	operatorMock "portadapter/repository/mock/operator"
-	operatorService "portadapter/service/operator"
-	structService "portadapter/struct/service"
+	operatorService "portadapter/business/operator"
+	portOperator "portadapter/business/operator/port"
+	operatorMock "portadapter/modules/repository/mock/operator"
 )
 
 func TestCreate(t *testing.T) {
@@ -18,7 +18,7 @@ func TestCreate(t *testing.T) {
 		repository.On("CreateData", mock.Anything)
 
 		operatorService := operatorService.New(repository)
-		err := operatorService.CreateData(structService.SaveOperator{})
+		err := operatorService.CreateData(portOperator.SaveOperatorService{})
 		assert.Nil(t, err)
 	})
 }
@@ -43,7 +43,7 @@ func TestUpdate(t *testing.T) {
 		repository.On("UpdateData", mock.Anything, mock.Anything)
 
 		operatorService := operatorService.New(repository)
-		err := operatorService.UpdateData("1", structService.SaveOperator{})
+		err := operatorService.UpdateData("1", portOperator.SaveOperatorService{})
 		assert.Nil(t, err)
 	})
 }

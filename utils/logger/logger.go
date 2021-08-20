@@ -6,7 +6,7 @@ import (
 
 	"time"
 
-	"portadapter/config"
+	"portadapter/utils/config"
 
 	"os"
 	"strings"

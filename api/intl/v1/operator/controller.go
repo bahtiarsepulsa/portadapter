@@ -4,9 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	portOperator "portadapter/port/operator"
-	structController "portadapter/struct/controller"
-	structService "portadapter/struct/service"
+	portOperator "portadapter/business/operator/port"
 	"portadapter/utils/validator"
 
 	"github.com/labstack/echo"
@@ -23,7 +21,7 @@ func New(operatorService portOperator.Service) *Controller {
 }
 
 func (controller *Controller) CreateData(c echo.Context) error {
-	createRequest := new(structController.CreateRequestOperator)
+	createRequest := new(CreateRequestOperator)
 
 	if err := c.Bind(createRequest); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, err)
@@ -33,7 +31,7 @@ func (controller *Controller) CreateData(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, err)
 	}
 
-	operator := structService.SaveOperator{
+	operator := portOperator.SaveOperatorService{
 		Code:  createRequest.Code,
 		Label: createRequest.Label,
 	}
@@ -54,7 +52,7 @@ func (controller *Controller) ReadData(c echo.Context) error {
 	}
 
 	b, _ := json.Marshal(operator)
-	readDataResponse := structController.ReadDataResponseOperator{
+	readDataResponse := ReadDataResponseOperator{
 		ID:    operator.ID,
 		Code:  operator.Code,
 		Label: operator.Label,
@@ -67,7 +65,7 @@ func (controller *Controller) ReadData(c echo.Context) error {
 func (controller *Controller) UpdateData(c echo.Context) error {
 	id := c.Param("id")
 
-	updateRequest := new(structController.UpdateRequestOperator)
+	updateRequest := new(UpdateRequestOperator)
 
 	if err := c.Bind(updateRequest); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, err)
@@ -77,7 +75,7 @@ func (controller *Controller) UpdateData(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, err)
 	}
 
-	operator := structService.SaveOperator{
+	operator := portOperator.SaveOperatorService{
 		Code:  updateRequest.Code,
 		Label: updateRequest.Label,
 	}
@@ -107,7 +105,7 @@ func (controller *Controller) ListData(c echo.Context) error {
 	}
 
 	b, _ := json.Marshal(operators)
-	var listDataResponse []structController.ListDataResponseOperator
+	var listDataResponse []ListDataResponseOperator
 	json.Unmarshal(b, &listDataResponse)
 
 	return c.JSON(http.StatusOK, listDataResponse)

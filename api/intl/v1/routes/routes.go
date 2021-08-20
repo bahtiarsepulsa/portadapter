@@ -1,11 +1,11 @@
 package routes
 
 import (
-	"portadapter/config"
+	"portadapter/utils/config"
 
 	operatorController "portadapter/api/intl/v1/operator"
-	operatorRepository "portadapter/repository/mysql/operator"
-	operatorService "portadapter/service/operator"
+	operatorService "portadapter/business/operator"
+	operatorRepository "portadapter/modules/repository/mysql/operator"
 
 	"github.com/labstack/echo"
 )

@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"portadapter/api/intl/v1/routes"
-	"portadapter/logger"
+	"portadapter/utils/logger"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
